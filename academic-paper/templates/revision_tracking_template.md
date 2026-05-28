@@ -26,8 +26,8 @@ This template works with both:
 
 ## Revision Tracking Table
 
-| # | Issue Description | Reviewer | Type | Section | Resolution Summary | Location of Change | Status | Reason (if not resolved) |
-|---|-------------------|----------|------|---------|-------------------|-------------------|--------|--------------------------|
+| # | Issue Description | Reviewer | Type | Section | Resolution Summary | Location of Change | Status | Reason (if not resolved) | Commitments | Fulfillment | Unfulfilled Rationale |
+|---|-------------------|----------|------|---------|-------------------|-------------------|--------|--------------------------|-------------|-------------|----------------------|
 | 1 | [description] | [R1/R2/R3/DA] | [Major/Minor/Editorial] | [section] | [what was done] | [page/paragraph] | [status] | [if applicable] |
 | 2 | [description] | [R1/R2/R3/DA] | [Major/Minor/Editorial] | [section] | [what was done] | [page/paragraph] | [status] | [if applicable] |
 | 3 | [description] | [R1/R2/R3/DA] | [Major/Minor/Editorial] | [section] | [what was done] | [page/paragraph] | [status] | [if applicable] |
@@ -59,6 +59,31 @@ Respectful disagreement with the reviewer's suggestion on methodological or theo
 - **Must provide**: evidence-based rebuttal with citations
 - **Must demonstrate**: that the reviewer's concern was carefully considered
 - **Example**: "We respectfully maintain our analytical approach. Smith (2022) and Chen (2023) both validate this method for our sample size and data structure. Response letter includes detailed justification."
+
+---
+
+## Commitment Ledger (Kong A1 / v3.11)
+
+Per Schema 11 v3.11, each row of the Revision Tracking Table may carry an extracted commitment list. Each commitment has a `fulfillment_status` chosen from:
+
+### fulfilled
+The commitment was addressed. Required evidence (per `required_evidence_type`) is present at `revision_location` and substantively addresses the `commitment_text`.
+
+### partial
+Evidence exists but does not fully address the commitment. Example: reviewer asked for ablation on dataset X; revision adds ablation on dataset Y. Author must populate `unfulfilled_rationale` with the gap explanation.
+
+### not-fulfilled
+Required evidence is absent. Author must populate `unfulfilled_rationale` with one of:
+- "done elsewhere, see §X" pointer
+- "rejected, reasons: …" rationale
+- "deferred to future work" acknowledgment
+
+Silent omission triggers `COMMITMENT_GAP` advisory at re-review.
+
+### explicitly-rejected-with-rationale
+Author has decided not to address the commitment and has provided one of the three rationale forms above. This is **not** a failure — it is a documented, defensible decision. Re-review records it without raising `COMMITMENT_GAP`.
+
+**Authoring guidance:** Fill in `commitment_extracted` first (typically via `revision_coach_agent` Step 3.5 output); fill `fulfillment_status` + `unfulfilled_rationale` as revision execution progresses. By final submission, every non-fulfilled commitment must have a rationale.
 
 ---
 
